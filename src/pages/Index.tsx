@@ -156,7 +156,7 @@ const Index = () => {
       </section>
 
       <section id="about" className="border-t border-border bg-leaf py-14 text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-3"><div className="md:col-span-2"><h2 className="font-display text-4xl font-bold">About page</h2><p className="mt-3 max-w-3xl text-primary-foreground/85">Bloom & Basket demonstrates a functional deployed website with a home page, catalog page, CRUD management page, order form page, responsive design, live data storage, request handling, and publish-ready hosting.</p></div><div className="rounded-lg bg-background/10 p-5"><p className="font-bold">Assignment checklist</p><p className="mt-2 text-sm text-primary-foreground/85">CRUD, forms, backend processing, database retrieval, and responsive React pages are included.</p></div></div>
+        <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-3"><div className="md:col-span-2"><h2 className="font-display text-4xl font-bold">About page</h2><p className="mt-3 max-w-3xl text-primary-foreground/85">Lavender Luxe demonstrates a functional deployed website with a home page, catalog page, CRUD management page, order form page, responsive design, live data storage, request handling, and publish-ready hosting.</p></div><div className="rounded-lg bg-background/10 p-5"><p className="font-bold">Assignment checklist</p><p className="mt-2 text-sm text-primary-foreground/85">CRUD, forms, backend processing, database retrieval, and responsive React pages are included.</p></div></div>
       </section>
     </main>
   );

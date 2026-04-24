@@ -134,7 +134,8 @@ const Index = () => {
         {loading ? <div className="grid gap-5 md:grid-cols-3">{[1,2,3].map((i) => <div key={i} className="h-56 animate-pulse rounded-lg bg-muted" />)}</div> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredFlowers.map((flower) => <FlowerCard key={flower.id} flower={flower} onEdit={editFlower} onDelete={deleteFlower} />)}</div>}
       </section>
 
-      <section id="manage" className="bg-secondary/55 py-16">
+      <section id="manage" className="relative overflow-hidden bg-secondary/55 py-16">
+        <div className="absolute left-6 top-10 h-24 w-24 rounded-full border border-gold/35 bg-card/45" />
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.85fr_1.15fr]">
           <div><SectionTitle icon={<PackageCheck />} title="CRUD management page" subtitle="Create and update jewelry with backend validation and database persistence." />
             <form onSubmit={submitFlower} className="space-y-4 rounded-lg border border-border bg-card p-5 shadow-soft">
@@ -145,7 +146,7 @@ const Index = () => {
               <div className="flex gap-3"><Button variant="bloom" type="submit">{editingId ? <Edit3 /> : <Plus />}{editingId ? "Update jewelry" : "Add jewelry"}</Button>{editingId && <Button type="button" variant="outline" onClick={() => { setEditingId(null); setFlowerForm(emptyFlower); }}>Cancel</Button>}</div>
             </form>
           </div>
-          <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><h3 className="mb-4 text-xl font-bold">Stored records</h3><div className="space-y-3">{flowers.map((flower) => <div key={flower.id} className="flex flex-col justify-between gap-3 rounded-md bg-muted/60 p-4 sm:flex-row sm:items-center"><div><p className="font-bold">{flower.name}</p><p className="text-sm text-muted-foreground">{flower.category} · ${flower.price} · {flower.stock} in stock</p></div><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => editFlower(flower)}><Edit3 /> Edit</Button><Button size="sm" variant="destructive" onClick={() => deleteFlower(flower.id)}><Trash2 /> Delete</Button></div></div>)}</div></div>
+          <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><h3 className="mb-4 text-xl font-bold">Stored records</h3><div className="space-y-3">{flowers.map((flower) => <div key={flower.id} className="flex flex-col justify-between gap-3 rounded-md border border-border/65 bg-background/70 p-4 shadow-soft transition-transform hover:-translate-y-0.5 sm:flex-row sm:items-center"><div><p className="font-bold">{flower.name}</p><p className="text-sm text-muted-foreground">{flower.category} · ${flower.price} · {flower.stock} in stock</p></div><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => editFlower(flower)}><Edit3 /> Edit</Button><Button size="sm" variant="destructive" onClick={() => deleteFlower(flower.id)}><Trash2 /> Delete</Button></div></div>)}</div></div>
         </div>
       </section>
 
@@ -160,7 +161,7 @@ const Index = () => {
             <Button variant="leaf" type="submit"><ShoppingBag /> Submit order</Button>
           </form>
         </div>
-        <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><div className="mb-4 flex items-center justify-between"><h3 className="text-xl font-bold">Recent retrieved orders</h3><Button size="sm" variant="outline" onClick={loadData}><RefreshCcw /> Refresh</Button></div><div className="space-y-3">{orders.map((order) => <div key={order.id} className="rounded-md bg-muted/60 p-4"><p className="font-bold">{order.customer_name} ordered {order.quantity} × {order.flower_name}</p><p className="text-sm text-muted-foreground">{order.email} · {order.status}</p>{order.message && <p className="mt-2 text-sm">“{order.message}”</p>}</div>)}</div></div>
+        <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><div className="mb-4 flex items-center justify-between gap-3"><h3 className="text-xl font-bold">Recent retrieved orders</h3><Button size="sm" variant="outline" onClick={loadData}><RefreshCcw /> Refresh</Button></div><div className="space-y-3">{orders.map((order) => <div key={order.id} className="rounded-md border border-border/65 bg-muted/45 p-4 shadow-soft"><p className="font-bold">{order.customer_name} ordered {order.quantity} × {order.flower_name}</p><p className="text-sm text-muted-foreground">{order.email} · {order.status}</p>{order.message && <p className="mt-2 text-sm">“{order.message}”</p>}</div>)}</div></div>
       </section>
 
       <section id="about" className="border-t border-border bg-leaf py-14 text-primary-foreground">

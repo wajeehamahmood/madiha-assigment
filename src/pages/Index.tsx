@@ -1,12 +1,5 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Edit3, Gem, PackageCheck, Plus, RefreshCcw, Search, ShoppingBag, Sparkles, Trash2 } from "lucide-react";
-import heroImage from "@/assets/jewelry-hero.jpg";
-import rubyRing from "@/assets/jewelry-products/ruby-ring.jpg";
-import emeraldNecklace from "@/assets/jewelry-products/emerald-necklace.jpg";
-import goldBracelet from "@/assets/jewelry-products/gold-bracelet.jpg";
-import pearlEarrings from "@/assets/jewelry-products/pearl-earrings.jpg";
-import sapphireSet from "@/assets/jewelry-products/sapphire-set.jpg";
-import roseGoldChain from "@/assets/jewelry-products/rose-gold-chain.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,8 +12,6 @@ type Flower = Tables<"flowers">;
 type Order = Tables<"shop_orders">;
 
 const emptyFlower = { name: "", category: "", price: "", stock: "", description: "", featured: false };
-const jewelryImages = [rubyRing, emeraldNecklace, goldBracelet, pearlEarrings, sapphireSet, roseGoldChain];
-const getJewelryImage = (flower: Flower) => jewelryImages[Math.abs([...flower.id].reduce((sum, char) => sum + char.charCodeAt(0), 0)) % jewelryImages.length];
 
 const Index = () => {
   const { toast } = useToast();
@@ -123,9 +114,13 @@ const Index = () => {
           <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage jewelry</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 text-center"><Stat value={flowers.length} label="Pieces" /><Stat value={orders.length} label="Recent orders" /><Stat value="4" label="Pages" /></div>
         </div>
-        <div className="relative animate-fade-up lg:justify-self-end">
-          <img src={heroImage} width={1200} height={800} alt="Elegant jewelry display with rings necklaces and bracelets" className="aspect-[4/3] w-full rounded-lg object-cover shadow-bloom" />
-          <div className="absolute bottom-4 left-4 rounded-lg bg-card/90 p-4 shadow-soft backdrop-blur"><p className="text-sm font-semibold text-muted-foreground">Today’s focus</p><p className="text-2xl font-bold text-primary">{featured[0]?.name || "Signature Jewelry"}</p></div>
+        <div className="relative flex aspect-[4/3] w-full items-center justify-center rounded-lg border border-border bg-card shadow-bloom animate-fade-up lg:justify-self-end">
+          <div className="absolute inset-5 rounded-lg border border-border/70 bg-secondary/40" />
+          <div className="relative text-center">
+            <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-rose-soft text-primary shadow-soft"><Gem size={58} /></div>
+            <p className="text-sm font-semibold text-muted-foreground">Today’s focus</p>
+            <p className="text-3xl font-bold text-primary">{featured[0]?.name || "Signature Jewelry"}</p>
+          </div>
         </div>
       </section>
 
@@ -175,6 +170,6 @@ const Stat = ({ value, label }: { value: string | number; label: string }) => <d
 
 const SectionTitle = ({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) => <div className="mb-7"><div className="mb-2 flex items-center gap-2 text-primary">{icon}<span className="text-sm font-bold uppercase">Jewelry shop</span></div><h2 className="font-display text-4xl font-bold text-foreground">{title}</h2><p className="mt-2 max-w-2xl text-muted-foreground">{subtitle}</p></div>;
 
-const FlowerCard = ({ flower, onEdit, onDelete }: { flower: Flower; onEdit: (flower: Flower) => void; onDelete: (id: string) => void }) => <Card className="group overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-bloom"><CardContent className="p-0"><div className="relative aspect-[16/10] overflow-hidden bg-rose-soft"><img src={getJewelryImage(flower)} alt={`${flower.name} jewelry piece`} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" /><div className="absolute right-3 top-3 rounded-full bg-card/90 p-2 text-primary shadow-soft backdrop-blur"><Gem size={20} /></div></div><div className="p-5"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-xl font-bold">{flower.name}</h3><p className="text-sm font-semibold text-primary">{flower.category}</p></div><p className="font-bold text-leaf">${flower.price}</p></div><p className="min-h-12 text-sm text-muted-foreground">{flower.description}</p><div className="mt-4 flex items-center justify-between"><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">Stock: {flower.stock}</span><div className="flex gap-2"><Button size="icon" variant="outline" aria-label={`Edit ${flower.name}`} onClick={() => onEdit(flower)}><Edit3 /></Button><Button size="icon" variant="destructive" aria-label={`Delete ${flower.name}`} onClick={() => onDelete(flower.id)}><Trash2 /></Button></div></div></div></CardContent></Card>;
+const FlowerCard = ({ flower, onEdit, onDelete }: { flower: Flower; onEdit: (flower: Flower) => void; onDelete: (id: string) => void }) => <Card className="group overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-bloom"><CardContent className="p-0"><div className="flex aspect-[16/10] items-center justify-center bg-rose-soft"><div className="flex h-20 w-20 items-center justify-center rounded-full bg-card text-primary shadow-soft transition-transform group-hover:scale-110"><Gem size={38} /></div></div><div className="p-5"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-xl font-bold">{flower.name}</h3><p className="text-sm font-semibold text-primary">{flower.category}</p></div><p className="font-bold text-leaf">${flower.price}</p></div><p className="min-h-12 text-sm text-muted-foreground">{flower.description}</p><div className="mt-4 flex items-center justify-between"><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">Stock: {flower.stock}</span><div className="flex gap-2"><Button size="icon" variant="outline" aria-label={`Edit ${flower.name}`} onClick={() => onEdit(flower)}><Edit3 /></Button><Button size="icon" variant="destructive" aria-label={`Delete ${flower.name}`} onClick={() => onDelete(flower.id)}><Trash2 /></Button></div></div></div></CardContent></Card>;
 
 export default Index;

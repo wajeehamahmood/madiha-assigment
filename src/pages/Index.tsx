@@ -1,6 +1,12 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Edit3, Flower2, Leaf, PackageCheck, Plus, RefreshCcw, Search, ShoppingBag, Trash2 } from "lucide-react";
-import heroImage from "@/assets/flower-shop-hero.jpg";
+import { Edit3, Gem, PackageCheck, Plus, RefreshCcw, Search, ShoppingBag, Sparkles, Trash2 } from "lucide-react";
+import heroImage from "@/assets/jewelry-hero.jpg";
+import rubyRing from "@/assets/jewelry-products/ruby-ring.jpg";
+import emeraldNecklace from "@/assets/jewelry-products/emerald-necklace.jpg";
+import goldBracelet from "@/assets/jewelry-products/gold-bracelet.jpg";
+import pearlEarrings from "@/assets/jewelry-products/pearl-earrings.jpg";
+import sapphireSet from "@/assets/jewelry-products/sapphire-set.jpg";
+import roseGoldChain from "@/assets/jewelry-products/rose-gold-chain.jpg";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +19,8 @@ type Flower = Tables<"flowers">;
 type Order = Tables<"shop_orders">;
 
 const emptyFlower = { name: "", category: "", price: "", stock: "", description: "", featured: false };
+const jewelryImages = [rubyRing, emeraldNecklace, goldBracelet, pearlEarrings, sapphireSet, roseGoldChain];
+const getJewelryImage = (flower: Flower) => jewelryImages[Math.abs([...flower.id].reduce((sum, char) => sum + char.charCodeAt(0), 0)) % jewelryImages.length];
 
 const Index = () => {
   const { toast } = useToast();
@@ -99,7 +107,7 @@ const Index = () => {
     <main className="min-h-screen overflow-hidden bg-gradient-bloom">
       <nav className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><Flower2 className="text-primary" /> Bloom & Basket</a>
+          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><Gem className="text-primary" /> Luxe & Loom</a>
           <div className="hidden items-center gap-5 text-sm font-semibold text-muted-foreground md:flex">
             <a className="hover:text-primary" href="#catalog">Catalog</a><a className="hover:text-primary" href="#manage">CRUD</a><a className="hover:text-primary" href="#orders">Orders</a><a className="hover:text-primary" href="#about">About</a>
           </div>
@@ -109,33 +117,33 @@ const Index = () => {
       <section id="home" className="relative mx-auto grid min-h-[82vh] max-w-7xl items-center gap-10 px-5 py-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="absolute inset-x-0 top-8 -z-10 h-72 rounded-full bg-rose-soft blur-3xl bloom-shift" />
         <div className="animate-fade-up">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground"><Leaf size={16} /> Fresh flowers, managed live</p>
-          <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-7xl">Bloom & Basket Flower Shop</h1>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">A complete responsive CRUD website for a flower shop: add, view, update, delete inventory, process orders, and retrieve records from a live database.</p>
-          <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage flowers</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
-          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 text-center"><Stat value={flowers.length} label="Bouquets" /><Stat value={orders.length} label="Recent orders" /><Stat value="4" label="Pages" /></div>
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground"><Sparkles size={16} /> Fine jewelry, managed live</p>
+          <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-7xl">Luxe & Loom Jewelry Shop</h1>
+          <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">A complete responsive CRUD website for a jewelry shop: add, view, update, delete inventory, process orders, and retrieve records from a live database.</p>
+          <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage jewelry</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
+          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 text-center"><Stat value={flowers.length} label="Pieces" /><Stat value={orders.length} label="Recent orders" /><Stat value="4" label="Pages" /></div>
         </div>
         <div className="relative animate-fade-up lg:justify-self-end">
-          <img src={heroImage} width={1536} height={1024} alt="Boutique flower shop counter with rose bouquets" className="aspect-[4/3] w-full rounded-lg object-cover shadow-bloom" />
-          <div className="absolute bottom-4 left-4 rounded-lg bg-card/90 p-4 shadow-soft backdrop-blur"><p className="text-sm font-semibold text-muted-foreground">Today’s focus</p><p className="text-2xl font-bold text-primary">{featured[0]?.name || "Fresh Bouquets"}</p></div>
+          <img src={heroImage} width={1200} height={800} alt="Elegant jewelry display with rings necklaces and bracelets" className="aspect-[4/3] w-full rounded-lg object-cover shadow-bloom" />
+          <div className="absolute bottom-4 left-4 rounded-lg bg-card/90 p-4 shadow-soft backdrop-blur"><p className="text-sm font-semibold text-muted-foreground">Today’s focus</p><p className="text-2xl font-bold text-primary">{featured[0]?.name || "Signature Jewelry"}</p></div>
         </div>
       </section>
 
       <section id="catalog" className="mx-auto max-w-7xl px-5 py-16">
-        <SectionTitle icon={<Search />} title="Catalog page" subtitle="View stored flower records and search live inventory." />
-        <div className="mb-6 max-w-md"><Input aria-label="Search flowers" placeholder="Search roses, tulips, gifts..." value={query} onChange={(e) => setQuery(e.target.value)} /></div>
+        <SectionTitle icon={<Search />} title="Catalog page" subtitle="View stored jewelry records and search live inventory." />
+        <div className="mb-6 max-w-md"><Input aria-label="Search jewelry" placeholder="Search rings, necklaces, bracelets..." value={query} onChange={(e) => setQuery(e.target.value)} /></div>
         {loading ? <div className="grid gap-5 md:grid-cols-3">{[1,2,3].map((i) => <div key={i} className="h-56 animate-pulse rounded-lg bg-muted" />)}</div> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredFlowers.map((flower) => <FlowerCard key={flower.id} flower={flower} onEdit={editFlower} onDelete={deleteFlower} />)}</div>}
       </section>
 
       <section id="manage" className="bg-secondary/55 py-16">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.85fr_1.15fr]">
-          <div><SectionTitle icon={<PackageCheck />} title="CRUD management page" subtitle="Create and update flowers with backend validation and database persistence." />
+          <div><SectionTitle icon={<PackageCheck />} title="CRUD management page" subtitle="Create and update jewelry with backend validation and database persistence." />
             <form onSubmit={submitFlower} className="space-y-4 rounded-lg border border-border bg-card p-5 shadow-soft">
-              <Input required placeholder="Flower name" value={flowerForm.name} onChange={(e) => setFlowerForm({ ...flowerForm, name: e.target.value })} />
+              <Input required placeholder="Jewelry name" value={flowerForm.name} onChange={(e) => setFlowerForm({ ...flowerForm, name: e.target.value })} />
               <div className="grid gap-4 sm:grid-cols-3"><Input required placeholder="Category" value={flowerForm.category} onChange={(e) => setFlowerForm({ ...flowerForm, category: e.target.value })} /><Input required min="0" step="0.01" type="number" placeholder="Price" value={flowerForm.price} onChange={(e) => setFlowerForm({ ...flowerForm, price: e.target.value })} /><Input required min="0" type="number" placeholder="Stock" value={flowerForm.stock} onChange={(e) => setFlowerForm({ ...flowerForm, stock: e.target.value })} /></div>
               <Textarea required placeholder="Description" value={flowerForm.description} onChange={(e) => setFlowerForm({ ...flowerForm, description: e.target.value })} />
-              <label className="flex items-center gap-3 text-sm font-semibold"><input type="checkbox" checked={flowerForm.featured} onChange={(e) => setFlowerForm({ ...flowerForm, featured: e.target.checked })} /> Featured bouquet</label>
-              <div className="flex gap-3"><Button variant="bloom" type="submit">{editingId ? <Edit3 /> : <Plus />}{editingId ? "Update flower" : "Add flower"}</Button>{editingId && <Button type="button" variant="outline" onClick={() => { setEditingId(null); setFlowerForm(emptyFlower); }}>Cancel</Button>}</div>
+              <label className="flex items-center gap-3 text-sm font-semibold"><input type="checkbox" checked={flowerForm.featured} onChange={(e) => setFlowerForm({ ...flowerForm, featured: e.target.checked })} /> Featured piece</label>
+              <div className="flex gap-3"><Button variant="bloom" type="submit">{editingId ? <Edit3 /> : <Plus />}{editingId ? "Update jewelry" : "Add jewelry"}</Button>{editingId && <Button type="button" variant="outline" onClick={() => { setEditingId(null); setFlowerForm(emptyFlower); }}>Cancel</Button>}</div>
             </form>
           </div>
           <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><h3 className="mb-4 text-xl font-bold">Stored records</h3><div className="space-y-3">{flowers.map((flower) => <div key={flower.id} className="flex flex-col justify-between gap-3 rounded-md bg-muted/60 p-4 sm:flex-row sm:items-center"><div><p className="font-bold">{flower.name}</p><p className="text-sm text-muted-foreground">{flower.category} · ${flower.price} · {flower.stock} in stock</p></div><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => editFlower(flower)}><Edit3 /> Edit</Button><Button size="sm" variant="destructive" onClick={() => deleteFlower(flower.id)}><Trash2 /> Delete</Button></div></div>)}</div></div>

@@ -65,8 +65,8 @@ const Index = () => {
     };
     const request = editingId ? supabase.from("flowers").update(payload).eq("id", editingId) : supabase.from("flowers").insert(payload);
     const { error } = await request;
-    if (error) return toast({ title: "Flower not saved", description: error.message, variant: "destructive" });
-    toast({ title: editingId ? "Flower updated" : "Flower added", description: "Inventory is synced with the database." });
+    if (error) return toast({ title: "Jewelry not saved", description: error.message, variant: "destructive" });
+    toast({ title: editingId ? "Jewelry updated" : "Jewelry added", description: "Inventory is synced with the database." });
     setFlowerForm(emptyFlower);
     setEditingId(null);
     loadData();
@@ -80,15 +80,15 @@ const Index = () => {
 
   const deleteFlower = async (id: string) => {
     const { error } = await supabase.from("flowers").delete().eq("id", id);
-    if (error) return toast({ title: "Flower not deleted", description: error.message, variant: "destructive" });
-    toast({ title: "Flower deleted", description: "The catalog was updated." });
+    if (error) return toast({ title: "Jewelry not deleted", description: error.message, variant: "destructive" });
+    toast({ title: "Jewelry deleted", description: "The catalog was updated." });
     loadData();
   };
 
   const submitOrder = async (event: FormEvent) => {
     event.preventDefault();
     const flower = selectedOrderFlower;
-    if (!flower) return toast({ title: "Choose a bouquet first", variant: "destructive" });
+    if (!flower) return toast({ title: "Choose a jewelry piece first", variant: "destructive" });
     const { error } = await supabase.from("shop_orders").insert({
       customer_name: orderForm.customer_name.trim(),
       email: orderForm.email.trim(),
@@ -165,7 +165,7 @@ const Index = () => {
       </section>
 
       <section id="about" className="border-t border-border bg-leaf py-14 text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-3"><div className="md:col-span-2"><h2 className="font-display text-4xl font-bold">About page</h2><p className="mt-3 max-w-3xl text-primary-foreground/85">Bloom & Basket demonstrates a functional deployed website with a home page, catalog page, CRUD management page, order form page, responsive design, live data storage, request handling, and publish-ready hosting.</p></div><div className="rounded-lg bg-background/10 p-5"><p className="font-bold">Assignment checklist</p><p className="mt-2 text-sm text-primary-foreground/85">CRUD, forms, backend processing, database retrieval, and responsive React pages are included.</p></div></div>
+        <div className="mx-auto grid max-w-7xl gap-6 px-5 md:grid-cols-3"><div className="md:col-span-2"><h2 className="font-display text-4xl font-bold">About page</h2><p className="mt-3 max-w-3xl text-primary-foreground/85">Luxe & Loom demonstrates a functional deployed website with a home page, catalog page, CRUD management page, order form page, responsive design, live data storage, request handling, and publish-ready hosting.</p></div><div className="rounded-lg bg-background/10 p-5"><p className="font-bold">Assignment checklist</p><p className="mt-2 text-sm text-primary-foreground/85">CRUD, forms, backend processing, database retrieval, and responsive React pages are included.</p></div></div>
       </section>
     </main>
   );

@@ -1,6 +1,5 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
-import { Edit3, Flower2, Leaf, PackageCheck, Plus, RefreshCcw, Search, ShoppingBag, Trash2 } from "lucide-react";
-import heroImage from "@/assets/flower-shop-hero.jpg";
+import { Diamond, Edit3, Gem, PackageCheck, Plus, RefreshCcw, Search, ShoppingBag, Sparkles, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -9,16 +8,16 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 
-type Flower = Tables<"flowers">;
+type Jewelry = Tables<"flowers">;
 type Order = Tables<"shop_orders">;
 
-const emptyFlower = { name: "", category: "", price: "", stock: "", description: "", featured: false };
+const emptyJewelry = { name: "", category: "", price: "", stock: "", description: "", featured: false };
 
 const Index = () => {
   const { toast } = useToast();
-  const [flowers, setFlowers] = useState<Flower[]>([]);
+  const [flowers, setFlowers] = useState<Jewelry[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [flowerForm, setFlowerForm] = useState(emptyFlower);
+  const [flowerForm, setFlowerForm] = useState(emptyJewelry);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [orderForm, setOrderForm] = useState({ customer_name: "", email: "", flower_id: "", quantity: "1", message: "" });
   const [query, setQuery] = useState("");
@@ -30,7 +29,7 @@ const Index = () => {
       supabase.from("flowers").select("*").order("created_at", { ascending: false }),
       supabase.from("shop_orders").select("*").order("created_at", { ascending: false }).limit(8),
     ]);
-    if (flowerError || orderError) toast({ title: "Could not load shop data", description: flowerError?.message || orderError?.message, variant: "destructive" });
+    if (flowerError || orderError) toast({ title: "Could not load jewelry data", description: flowerError?.message || orderError?.message, variant: "destructive" });
     setFlowers(flowerData || []);
     setOrders(orderData || []);
     setLoading(false);
@@ -57,14 +56,14 @@ const Index = () => {
     };
     const request = editingId ? supabase.from("flowers").update(payload).eq("id", editingId) : supabase.from("flowers").insert(payload);
     const { error } = await request;
-    if (error) return toast({ title: "Flower not saved", description: error.message, variant: "destructive" });
-    toast({ title: editingId ? "Flower updated" : "Flower added", description: "Inventory is synced with the database." });
-    setFlowerForm(emptyFlower);
+    if (error) return toast({ title: "Jewelry item not saved", description: error.message, variant: "destructive" });
+    toast({ title: editingId ? "Jewelry item updated" : "Jewelry item added", description: "Inventory is synced with the database." });
+    setFlowerForm(emptyJewelry);
     setEditingId(null);
     loadData();
   };
 
-  const editFlower = (flower: Flower) => {
+  const editFlower = (flower: Jewelry) => {
     setEditingId(flower.id);
     setFlowerForm({ name: flower.name, category: flower.category, price: String(flower.price), stock: String(flower.stock), description: flower.description, featured: flower.featured });
     document.getElementById("manage")?.scrollIntoView({ behavior: "smooth" });
@@ -72,15 +71,15 @@ const Index = () => {
 
   const deleteFlower = async (id: string) => {
     const { error } = await supabase.from("flowers").delete().eq("id", id);
-    if (error) return toast({ title: "Flower not deleted", description: error.message, variant: "destructive" });
-    toast({ title: "Flower deleted", description: "The catalog was updated." });
+    if (error) return toast({ title: "Jewelry item not deleted", description: error.message, variant: "destructive" });
+    toast({ title: "Jewelry item deleted", description: "The catalog was updated." });
     loadData();
   };
 
   const submitOrder = async (event: FormEvent) => {
     event.preventDefault();
     const flower = selectedOrderFlower;
-    if (!flower) return toast({ title: "Choose a bouquet first", variant: "destructive" });
+    if (!flower) return toast({ title: "Choose a jewelry piece first", variant: "destructive" });
     const { error } = await supabase.from("shop_orders").insert({
       customer_name: orderForm.customer_name.trim(),
       email: orderForm.email.trim(),

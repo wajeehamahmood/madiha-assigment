@@ -97,9 +97,9 @@ const Index = () => {
 
   return (
     <main className="min-h-screen overflow-hidden bg-gradient-bloom">
-      <nav className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+      <nav className="sticky top-0 z-20 border-b border-border/70 bg-background/88 shadow-soft backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><Gem className="text-primary" /> Luxe & Loom</a>
+          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-soft text-primary shadow-soft"><Gem size={21} /></span> Luxe & Loom</a>
           <div className="hidden items-center gap-5 text-sm font-semibold text-muted-foreground md:flex">
             <a className="hover:text-primary" href="#catalog">Catalog</a><a className="hover:text-primary" href="#manage">CRUD</a><a className="hover:text-primary" href="#orders">Orders</a><a className="hover:text-primary" href="#about">About</a>
           </div>
@@ -108,8 +108,9 @@ const Index = () => {
 
       <section id="home" className="relative mx-auto grid min-h-[82vh] max-w-7xl items-center gap-10 px-5 py-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="absolute inset-x-0 top-8 -z-10 h-72 rounded-full bg-rose-soft blur-3xl bloom-shift" />
+        <div className="absolute right-8 top-24 -z-10 hidden h-44 w-44 rounded-full border border-gold/40 bg-card/35 shadow-bloom lg:block" />
         <div className="animate-fade-up">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground"><Sparkles size={16} /> Fine jewelry, managed live</p>
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-2 text-sm font-bold text-primary shadow-soft"><Sparkles size={16} /> Fine jewelry, managed live</p>
           <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-7xl">Luxe & Loom Jewelry Shop</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">A complete responsive CRUD website for a jewelry shop: add, view, update, delete inventory, process orders, and retrieve records from a live database.</p>
           <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage jewelry</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
@@ -118,9 +119,11 @@ const Index = () => {
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-card shadow-bloom animate-fade-up lg:justify-self-end">
           <img src={lavenderJewelryHand} alt="Hand wearing lavender gemstone jewelry" width={1280} height={960} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+          <div className="absolute left-5 top-5 rounded-full border border-primary-foreground/35 bg-background/82 px-4 py-2 text-sm font-bold text-primary shadow-soft backdrop-blur-md">Lavender edit</div>
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <p className="text-sm font-semibold text-primary-foreground/85">Today’s focus</p>
             <p className="text-3xl font-bold text-primary-foreground drop-shadow-sm">{featured[0]?.name || "Signature Jewelry"}</p>
+            <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full bg-background/85 px-3 py-1 text-xs font-bold text-foreground backdrop-blur-md">Handcrafted</span><span className="rounded-full bg-background/85 px-3 py-1 text-xs font-bold text-foreground backdrop-blur-md">Lavender stones</span></div>
           </div>
         </div>
       </section>

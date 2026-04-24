@@ -97,9 +97,9 @@ const Index = () => {
 
   return (
     <main className="min-h-screen overflow-hidden bg-gradient-bloom">
-      <nav className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+      <nav className="sticky top-0 z-20 border-b border-border/70 bg-background/88 shadow-soft backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><Gem className="text-primary" /> Luxe & Loom</a>
+          <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-leaf"><span className="flex h-10 w-10 items-center justify-center rounded-full bg-rose-soft text-primary shadow-soft"><Gem size={21} /></span> Luxe & Loom</a>
           <div className="hidden items-center gap-5 text-sm font-semibold text-muted-foreground md:flex">
             <a className="hover:text-primary" href="#catalog">Catalog</a><a className="hover:text-primary" href="#manage">CRUD</a><a className="hover:text-primary" href="#orders">Orders</a><a className="hover:text-primary" href="#about">About</a>
           </div>
@@ -108,8 +108,9 @@ const Index = () => {
 
       <section id="home" className="relative mx-auto grid min-h-[82vh] max-w-7xl items-center gap-10 px-5 py-12 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="absolute inset-x-0 top-8 -z-10 h-72 rounded-full bg-rose-soft blur-3xl bloom-shift" />
+        <div className="absolute right-8 top-24 -z-10 hidden h-44 w-44 rounded-full border border-gold/40 bg-card/35 shadow-bloom lg:block" />
         <div className="animate-fade-up">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-secondary-foreground"><Sparkles size={16} /> Fine jewelry, managed live</p>
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-4 py-2 text-sm font-bold text-primary shadow-soft"><Sparkles size={16} /> Fine jewelry, managed live</p>
           <h1 className="font-display text-5xl font-bold leading-tight text-foreground md:text-7xl">Luxe & Loom Jewelry Shop</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">A complete responsive CRUD website for a jewelry shop: add, view, update, delete inventory, process orders, and retrieve records from a live database.</p>
           <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage jewelry</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
@@ -118,9 +119,11 @@ const Index = () => {
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-card shadow-bloom animate-fade-up lg:justify-self-end">
           <img src={lavenderJewelryHand} alt="Hand wearing lavender gemstone jewelry" width={1280} height={960} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+          <div className="absolute left-5 top-5 rounded-full border border-primary-foreground/35 bg-background/82 px-4 py-2 text-sm font-bold text-primary shadow-soft backdrop-blur-md">Lavender edit</div>
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <p className="text-sm font-semibold text-primary-foreground/85">Today’s focus</p>
             <p className="text-3xl font-bold text-primary-foreground drop-shadow-sm">{featured[0]?.name || "Signature Jewelry"}</p>
+            <div className="mt-3 flex flex-wrap gap-2"><span className="rounded-full bg-background/85 px-3 py-1 text-xs font-bold text-foreground backdrop-blur-md">Handcrafted</span><span className="rounded-full bg-background/85 px-3 py-1 text-xs font-bold text-foreground backdrop-blur-md">Lavender stones</span></div>
           </div>
         </div>
       </section>
@@ -131,7 +134,8 @@ const Index = () => {
         {loading ? <div className="grid gap-5 md:grid-cols-3">{[1,2,3].map((i) => <div key={i} className="h-56 animate-pulse rounded-lg bg-muted" />)}</div> : <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{filteredFlowers.map((flower) => <FlowerCard key={flower.id} flower={flower} onEdit={editFlower} onDelete={deleteFlower} />)}</div>}
       </section>
 
-      <section id="manage" className="bg-secondary/55 py-16">
+      <section id="manage" className="relative overflow-hidden bg-secondary/55 py-16">
+        <div className="absolute left-6 top-10 h-24 w-24 rounded-full border border-gold/35 bg-card/45" />
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.85fr_1.15fr]">
           <div><SectionTitle icon={<PackageCheck />} title="CRUD management page" subtitle="Create and update jewelry with backend validation and database persistence." />
             <form onSubmit={submitFlower} className="space-y-4 rounded-lg border border-border bg-card p-5 shadow-soft">
@@ -142,7 +146,7 @@ const Index = () => {
               <div className="flex gap-3"><Button variant="bloom" type="submit">{editingId ? <Edit3 /> : <Plus />}{editingId ? "Update jewelry" : "Add jewelry"}</Button>{editingId && <Button type="button" variant="outline" onClick={() => { setEditingId(null); setFlowerForm(emptyFlower); }}>Cancel</Button>}</div>
             </form>
           </div>
-          <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><h3 className="mb-4 text-xl font-bold">Stored records</h3><div className="space-y-3">{flowers.map((flower) => <div key={flower.id} className="flex flex-col justify-between gap-3 rounded-md bg-muted/60 p-4 sm:flex-row sm:items-center"><div><p className="font-bold">{flower.name}</p><p className="text-sm text-muted-foreground">{flower.category} · ${flower.price} · {flower.stock} in stock</p></div><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => editFlower(flower)}><Edit3 /> Edit</Button><Button size="sm" variant="destructive" onClick={() => deleteFlower(flower.id)}><Trash2 /> Delete</Button></div></div>)}</div></div>
+          <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><h3 className="mb-4 text-xl font-bold">Stored records</h3><div className="space-y-3">{flowers.map((flower) => <div key={flower.id} className="flex flex-col justify-between gap-3 rounded-md border border-border/65 bg-background/70 p-4 shadow-soft transition-transform hover:-translate-y-0.5 sm:flex-row sm:items-center"><div><p className="font-bold">{flower.name}</p><p className="text-sm text-muted-foreground">{flower.category} · ${flower.price} · {flower.stock} in stock</p></div><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => editFlower(flower)}><Edit3 /> Edit</Button><Button size="sm" variant="destructive" onClick={() => deleteFlower(flower.id)}><Trash2 /> Delete</Button></div></div>)}</div></div>
         </div>
       </section>
 
@@ -157,7 +161,7 @@ const Index = () => {
             <Button variant="leaf" type="submit"><ShoppingBag /> Submit order</Button>
           </form>
         </div>
-        <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><div className="mb-4 flex items-center justify-between"><h3 className="text-xl font-bold">Recent retrieved orders</h3><Button size="sm" variant="outline" onClick={loadData}><RefreshCcw /> Refresh</Button></div><div className="space-y-3">{orders.map((order) => <div key={order.id} className="rounded-md bg-muted/60 p-4"><p className="font-bold">{order.customer_name} ordered {order.quantity} × {order.flower_name}</p><p className="text-sm text-muted-foreground">{order.email} · {order.status}</p>{order.message && <p className="mt-2 text-sm">“{order.message}”</p>}</div>)}</div></div>
+        <div className="rounded-lg border border-border bg-card p-5 shadow-soft"><div className="mb-4 flex items-center justify-between gap-3"><h3 className="text-xl font-bold">Recent retrieved orders</h3><Button size="sm" variant="outline" onClick={loadData}><RefreshCcw /> Refresh</Button></div><div className="space-y-3">{orders.map((order) => <div key={order.id} className="rounded-md border border-border/65 bg-muted/45 p-4 shadow-soft"><p className="font-bold">{order.customer_name} ordered {order.quantity} × {order.flower_name}</p><p className="text-sm text-muted-foreground">{order.email} · {order.status}</p>{order.message && <p className="mt-2 text-sm">“{order.message}”</p>}</div>)}</div></div>
       </section>
 
       <section id="about" className="border-t border-border bg-leaf py-14 text-primary-foreground">
@@ -167,10 +171,10 @@ const Index = () => {
   );
 };
 
-const Stat = ({ value, label }: { value: string | number; label: string }) => <div className="rounded-lg border border-border bg-card/75 p-4 shadow-soft"><p className="text-2xl font-bold text-primary">{value}</p><p className="text-xs font-semibold uppercase text-muted-foreground">{label}</p></div>;
+const Stat = ({ value, label }: { value: string | number; label: string }) => <div className="rounded-lg border border-border bg-card/80 p-4 shadow-soft backdrop-blur-sm transition-transform hover:-translate-y-1"><p className="text-2xl font-bold text-primary">{value}</p><p className="text-xs font-semibold uppercase text-muted-foreground">{label}</p></div>;
 
 const SectionTitle = ({ icon, title, subtitle }: { icon: React.ReactNode; title: string; subtitle: string }) => <div className="mb-7"><div className="mb-2 flex items-center gap-2 text-primary">{icon}<span className="text-sm font-bold uppercase">Jewelry shop</span></div><h2 className="font-display text-4xl font-bold text-foreground">{title}</h2><p className="mt-2 max-w-2xl text-muted-foreground">{subtitle}</p></div>;
 
-const FlowerCard = ({ flower, onEdit, onDelete }: { flower: Flower; onEdit: (flower: Flower) => void; onDelete: (id: string) => void }) => <Card className="group overflow-hidden transition-transform hover:-translate-y-1 hover:shadow-bloom"><CardContent className="p-0"><div className="flex aspect-[16/10] items-center justify-center bg-rose-soft"><div className="flex h-20 w-20 items-center justify-center rounded-full bg-card text-primary shadow-soft transition-transform group-hover:scale-110"><Gem size={38} /></div></div><div className="p-5"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-xl font-bold">{flower.name}</h3><p className="text-sm font-semibold text-primary">{flower.category}</p></div><p className="font-bold text-leaf">${flower.price}</p></div><p className="min-h-12 text-sm text-muted-foreground">{flower.description}</p><div className="mt-4 flex items-center justify-between"><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">Stock: {flower.stock}</span><div className="flex gap-2"><Button size="icon" variant="outline" aria-label={`Edit ${flower.name}`} onClick={() => onEdit(flower)}><Edit3 /></Button><Button size="icon" variant="destructive" aria-label={`Delete ${flower.name}`} onClick={() => onDelete(flower.id)}><Trash2 /></Button></div></div></div></CardContent></Card>;
+const FlowerCard = ({ flower, onEdit, onDelete }: { flower: Flower; onEdit: (flower: Flower) => void; onDelete: (id: string) => void }) => <Card className="group overflow-hidden border-border/80 bg-card/95 shadow-soft transition-all hover:-translate-y-1 hover:shadow-bloom"><CardContent className="p-0"><div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden bg-gradient-hero"><div className="absolute inset-4 rounded-lg border border-primary-foreground/25" /><div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary-foreground/20" /><div className="absolute -bottom-10 -left-8 h-28 w-28 rounded-full bg-background/20" /><div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-card/92 text-primary shadow-soft backdrop-blur-md transition-transform group-hover:scale-110"><Gem size={38} /></div>{flower.featured && <span className="absolute left-4 top-4 rounded-full bg-background/88 px-3 py-1 text-xs font-bold text-primary shadow-soft backdrop-blur-md">Featured</span>}</div><div className="p-5"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-xl font-bold">{flower.name}</h3><p className="text-sm font-semibold text-primary">{flower.category}</p></div><p className="font-bold text-leaf">${flower.price}</p></div><p className="min-h-12 text-sm text-muted-foreground">{flower.description}</p><div className="mt-4 flex items-center justify-between gap-3"><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">Stock: {flower.stock}</span><div className="flex gap-2"><Button size="icon" variant="outline" aria-label={`Edit ${flower.name}`} onClick={() => onEdit(flower)}><Edit3 /></Button><Button size="icon" variant="destructive" aria-label={`Delete ${flower.name}`} onClick={() => onDelete(flower.id)}><Trash2 /></Button></div></div></div></CardContent></Card>;
 
 export default Index;

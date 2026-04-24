@@ -8,45 +8,45 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 42 52% 96%;
-    --foreground: 230 24% 12%;
+    --background: 32 42% 97%;
+    --foreground: 247 22% 16%;
 
-    --card: 40 55% 98%;
-    --card-foreground: 230 24% 12%;
+    --card: 34 50% 99%;
+    --card-foreground: 247 22% 16%;
 
-    --popover: 40 55% 98%;
-    --popover-foreground: 230 24% 12%;
+    --popover: 34 50% 99%;
+    --popover-foreground: 247 22% 16%;
 
-    --primary: 338 60% 31%;
-    --primary-foreground: 40 55% 98%;
+    --primary: 326 38% 44%;
+    --primary-foreground: 34 50% 99%;
 
-    --secondary: 42 49% 86%;
-    --secondary-foreground: 230 24% 12%;
+    --secondary: 28 44% 90%;
+    --secondary-foreground: 247 22% 16%;
 
-    --muted: 39 34% 90%;
-    --muted-foreground: 228 11% 40%;
+    --muted: 30 30% 92%;
+    --muted-foreground: 248 10% 43%;
 
-    --accent: 39 72% 52%;
-    --accent-foreground: 230 24% 12%;
+    --accent: 164 28% 55%;
+    --accent-foreground: 247 22% 16%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 38 58% 98%;
 
-    --border: 40 29% 78%;
-    --input: 40 29% 78%;
-    --ring: 338 60% 31%;
+    --border: 30 25% 82%;
+    --input: 30 25% 82%;
+    --ring: 326 38% 44%;
 
-    --rose: 338 60% 31%;
-    --rose-soft: 342 52% 91%;
-    --leaf: 168 42% 23%;
-    --leaf-soft: 166 28% 86%;
-    --gold: 39 72% 52%;
-    --cream: 42 47% 96%;
-    --ink: 230 24% 12%;
-    --gradient-hero: linear-gradient(135deg, hsl(338 60% 31% / 0.94), hsl(168 42% 23% / 0.9));
-    --gradient-bloom: radial-gradient(circle at 20% 20%, hsl(342 52% 91%), transparent 34%), radial-gradient(circle at 82% 2%, hsl(39 72% 52% / 0.42), transparent 28%), linear-gradient(180deg, hsl(var(--background)), hsl(166 28% 86% / 0.58));
-    --shadow-bloom: 0 24px 70px -35px hsl(338 60% 31% / 0.55);
-    --shadow-soft: 0 18px 45px -30px hsl(230 24% 12% / 0.35);
+    --rose: 326 38% 44%;
+    --rose-soft: 326 38% 93%;
+    --leaf: 164 28% 35%;
+    --leaf-soft: 164 28% 88%;
+    --gold: 38 54% 62%;
+    --cream: 32 42% 97%;
+    --ink: 247 22% 16%;
+    --gradient-hero: linear-gradient(135deg, hsl(326 38% 44% / 0.9), hsl(164 28% 35% / 0.86));
+    --gradient-bloom: radial-gradient(circle at 18% 18%, hsl(326 38% 93%), transparent 34%), radial-gradient(circle at 82% 4%, hsl(164 28% 88% / 0.7), transparent 30%), linear-gradient(180deg, hsl(var(--background)), hsl(28 44% 90% / 0.62));
+    --shadow-bloom: 0 24px 70px -35px hsl(326 38% 44% / 0.48);
+    --shadow-soft: 0 18px 45px -30px hsl(247 22% 16% / 0.3);
 
     --radius: 0.5rem;
 

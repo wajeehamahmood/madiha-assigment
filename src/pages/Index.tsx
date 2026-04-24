@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import lavenderJewelryHand from "@/assets/lavender-jewelry-hand.jpg";
 
 type Flower = Tables<"flowers">;
 type Order = Tables<"shop_orders">;
@@ -114,12 +115,12 @@ const Index = () => {
           <div className="mt-8 flex flex-wrap gap-3"><Button variant="bloom" asChild><a href="#manage"><Plus /> Manage jewelry</a></Button><Button variant="leaf" asChild><a href="#orders"><ShoppingBag /> Place order</a></Button></div>
           <div className="mt-10 grid max-w-xl grid-cols-3 gap-3 text-center"><Stat value={flowers.length} label="Pieces" /><Stat value={orders.length} label="Recent orders" /><Stat value="4" label="Pages" /></div>
         </div>
-        <div className="relative flex aspect-[4/3] w-full items-center justify-center rounded-lg border border-border bg-card shadow-bloom animate-fade-up lg:justify-self-end">
-          <div className="absolute inset-5 rounded-lg border border-border/70 bg-secondary/40" />
-          <div className="relative text-center">
-            <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-rose-soft text-primary shadow-soft"><Gem size={58} /></div>
-            <p className="text-sm font-semibold text-muted-foreground">Today’s focus</p>
-            <p className="text-3xl font-bold text-primary">{featured[0]?.name || "Signature Jewelry"}</p>
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border border-border bg-card shadow-bloom animate-fade-up lg:justify-self-end">
+          <img src={lavenderJewelryHand} alt="Hand wearing lavender gemstone jewelry" width={1280} height={960} className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <p className="text-sm font-semibold text-primary-foreground/85">Today’s focus</p>
+            <p className="text-3xl font-bold text-primary-foreground drop-shadow-sm">{featured[0]?.name || "Signature Jewelry"}</p>
           </div>
         </div>
       </section>
